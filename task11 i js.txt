@@ -1,0 +1,40 @@
+const cardContainer = document.querySelector(".main-container");
+fetch("https://restcountries.com/v3.1/all", {
+  method: "GET",
+})
+  .then((res) => res.json())
+  .then((data) => renderAllCards(data))
+  .catch((err) => console.log("[ERROR]", err));
+
+//create card() -> card -> button
+
+function renderAllCards(data) {
+  console.log(data);
+  data.map((val) => {
+    createCard(val);
+  });
+}
+
+function createCard(con) {
+  cardContainer.innerHTML += `
+  <div class="card">
+  <img id="flag" src=${con.flags.png} alt="Country Flag" />
+  <div class="card-info">
+    <h2>${con.name.common}</h2>
+    <p><span>Population </span>${con.population}</p>
+    <p><span>Region </span>${con.region}</p>
+    <p><span>Capital </span>${con.capital}</p>
+    <button class ="btn_clk" onclick=" getweather()">Click Weather</button>
+    <span></span>
+  </div>
+</div>
+  `;
+}
+function getweather(){
+
+const [lat, lng] = country.latlng;
+return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=YOUR_API_KEY`);}
+.then(response => response.json())
+.then(weather => {
+})
+
